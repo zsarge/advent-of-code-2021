@@ -4,21 +4,7 @@
 #
 # This assumes you are running a linux like system.
 
-require 'open-uri'
-require 'nokogiri'
-
-# Get text from internet -----
-def getProblemText(num, language)
-  url = "https://projecteuler.net/problem=#{num}"
-  doc = Nokogiri::HTML(URI.open(url))
-  content = doc.css('div.problem_content')
-  if language == "hs" || language == "java"
-    comment = ""
-  else
-    comment = "# "
-  end
-  return content.text.gsub("\r","").gsub("\n", "\n#{comment}").chomp
-end
+YEAR = 2020
 
 # Take input ----------------
 problemNumber = ""
@@ -55,7 +41,8 @@ unless File.directory?("solutions")
   exit(1)
 end
 filename = "solve#{problemNumber}.#{extension}"
-path = "solutions/#{problemNumber.rjust(3, "0")}"
+path = "solutions/#{problemNumber.rjust(2, "0")}"
+input_file_name = "input-#{problemNumber}.txt"
 
 # do not overwrite existing files
 if File.file?("#{path}/#{filename}")
@@ -66,71 +53,24 @@ end
 # pick template based on extension
 if extension == "rb"
   template = "\
-# https://projecteuler.net/problem=#{problemNumber}
+# https://adventofcode.com/#{YEAR}/day/#{problemNumber}
 # Run with: 'ruby #{filename}'
 # using Ruby 2.5.1
 # by Zack Sargent
 
-# Prompt:
-#{getProblemText(problemNumber, extension)}
-puts 'Hello World!'
+INPUT_FILE = File.open(\"#{input_file_name}\")
+# INPUTS = INPUT_FILE.read.split(\"\\n\").filter {|x| !x.empty?}
+INPUTS = File.readlines(\"#{input_file_name}\")
+
+p INPUTS
 "
-elsif extension == "py"
-  template = "\
-# https://projecteuler.net/problem=#{problemNumber}
-# Run with: 'python #{filename}'
-# using Python 3.6.9
-# by Zack Sargent
-
-\"\"\"
-Prompt:
-
-#{getProblemText(problemNumber, extension)}
-\"\"\"
-
-def main():
-  print('Hello World!')
-
-if __name__ == \"__main__\":
-  main()
-
-"
-elsif extension == "hs"
-  template = "\
--- https://projecteuler.net/problem=#{problemNumber}
--- Run with: 'ghc #{filename} && ./#{filename[0..filename.size-4]}' or 'runhaskell #{filename}'
--- using Haskell with GHC 8.0.2
--- by Zack Sargent
-
-{- Prompt:
-#{getProblemText(problemNumber, extension)}
--}
-
-main = putStrLn \"Hello World\"
-"
-elsif extension == "java"
-  template = "\
-// https://projecteuler.net/problem=#{problemNumber}
-// Run with: 'javac #{filename} && java Solve#{problemNumber}'
-// using openjdk version 11.0.10 and javac 11.0.10
-// by Zack Sargent
-
-/* Prompt:
-
-#{getProblemText(problemNumber, extension)}
-*/
-
-class Solve#{problemNumber} {
-    public static void main(String[] args) {
-        System.out.println(\"Hello, World!\");
-    }
-}
-
-"
+else
+  template = "no template found"
 end
 
 Dir.mkdir(path) unless File.directory?(path)
 
 File.write("#{path}/#{filename}", template, mode: "w")
+File.write("#{path}/#{input_file_name}", "PUT INPUT HERE", mode: "w")
 
 puts "created #{path}/#{filename}"
