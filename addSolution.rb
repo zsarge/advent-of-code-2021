@@ -49,10 +49,6 @@ else
   extension = ARGV[1]
 end
 
-if extension == ""
-  extension = rb
-end
-
 # Create file ---------------
 unless File.directory?("solutions")
   puts "no solutions directory found. are you running this from the right directory?"

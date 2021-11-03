@@ -70,8 +70,7 @@ end
 # Start content generation
 
 def getFilesInDir(dir)
-  files = Dir.children(dir)
-  return files
+  return Dir.children(dir)
 end
 
 def makeLink(files, dirName)
@@ -88,11 +87,10 @@ end
 # and returns either a link to the solution
 # or the name if the solution doesn't exist
 def getLink(name, solutions, language = nil)
-  name = name.to_i
-  if solutions.key?(name)
-    return solutions[name]
+  if solutions.key?(name.to_i)
+    solutions[name]
   else
-    return name
+    name.to_i
   end
 end
 
