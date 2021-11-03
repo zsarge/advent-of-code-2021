@@ -16,6 +16,7 @@ if ARGV.length == 0
 
   puts "enter the file extension"
   extension = gets.chomp
+  extension = "rb" if extension.empty?
 
   puts "create solve#{problemNumber}.#{extension}? (y/n)"
   input = ""
@@ -42,7 +43,7 @@ unless File.directory?("solutions")
 end
 filename = "solve#{problemNumber}.#{extension}"
 path = "solutions/#{problemNumber.rjust(2, "0")}"
-input_file_name = "input-#{problemNumber}.txt"
+input_file_name = "input#{problemNumber}.txt"
 
 # do not overwrite existing files
 if File.file?("#{path}/#{filename}")
