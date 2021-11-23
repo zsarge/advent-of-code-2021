@@ -27,4 +27,6 @@ I have some scripts set up to make working on problems a smoother experience:
 
 Some of the scripts were reused from [my Project Euler solutions](https://github.com/zsarge/ProjectEuler).
 
+[In 2020, I tried to solve each day in a different language.](https://github.com/zsarge/AdventOfCode2020) That was a pain, and I'm not doing that again this year.
+
 Code by [Zack Sargent](https://github.com/zsarge).
