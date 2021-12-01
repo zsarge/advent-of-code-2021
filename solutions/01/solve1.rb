@@ -6,7 +6,7 @@
 INPUTS = File.readlines("input1.txt").map(&:to_i)
 
 def count_increasing arr
-  arr.each_cons(2).count{ _2 - _1 > 0 }
+  arr.each_cons(2).count{ _2 > _1 }
 end
 
 # part 1
