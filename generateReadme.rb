@@ -155,6 +155,17 @@ content = "\
 #{FULL_TABLE}
 
 <br>
+
+## Goal
+
+These solutions emphasize readability.
+
+While readability is a subjective metric,
+it is my goal that these solutions don't
+look like code golf.
+
+## Miscellaneous
+
 I have some scripts set up to make working on problems a smoother experience:
 
  - [`addSolution.rb`](addSolution.rb) takes a problem number, creates the associated folder and file, and copies the problem's prompt from the website.
