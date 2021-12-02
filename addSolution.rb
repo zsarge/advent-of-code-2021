@@ -54,6 +54,7 @@ end
 # pick template based on extension
 if extension == "rb"
   template = "\
+#!/usr/bin/env ruby
 # https://adventofcode.com/#{YEAR}/day/#{problemNumber}
 # Run with: 'ruby #{filename}'
 # using Ruby 2.5.1
