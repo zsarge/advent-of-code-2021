@@ -10,33 +10,30 @@ INPUTS = File.readlines("input2.txt").map do |line|
 end
 
 def part_1
-  x = d = 0
+  x = y = 0
 
   INPUTS.each do |command, value|
     case command
     when :forward 
       x += value
     when :down
-      d += value
+      y += value
     when :up
-      d -= value
+      y -= value
     end
   end
 
-  x * d
+  x * y
 end
 
-p part_1
-
-
 def part_2
-  x = d = aim = 0
+  x = y = aim = 0
 
   INPUTS.each do |command, value|
     case command
     when :forward 
       x += value
-      d += aim * value
+      y += aim * value
     when :down
       aim += value
     when :up
@@ -44,7 +41,8 @@ def part_2
     end
   end
 
-  x * d
+  x * y
 end
 
+p part_1
 p part_2
