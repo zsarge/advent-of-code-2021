@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 
 for directory in solutions/*
 do printf "\t$directory\n"
