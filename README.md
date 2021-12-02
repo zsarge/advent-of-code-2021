@@ -1,9 +1,5 @@
 # [Advent of Code 2021](https://adventofcode.com/2021)
 
-**Disclaimer:**
-
-Not all of these solutions are particularly good.
-
 ## My Advent of Code Solutions
 (Click a number to view the associated solution.)
 <!---
