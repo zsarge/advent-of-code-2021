@@ -9,12 +9,16 @@ INPUTS = File.readlines("input2.txt").map do |line|
   [command.to_sym, value.to_i]
 end
 
+#  Note that (0,0) is the top left, and
+#  that increasing x and y represents
+#  moving right and down.
+
 def part_1
   x = y = 0
 
   INPUTS.each do |command, value|
     case command
-    when :forward 
+    when :forward
       x += value
     when :down
       y += value
@@ -31,7 +35,7 @@ def part_2
 
   INPUTS.each do |command, value|
     case command
-    when :forward 
+    when :forward
       x += value
       y += aim * value
     when :down
