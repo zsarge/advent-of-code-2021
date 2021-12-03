@@ -20,14 +20,14 @@ end
 
 # reduce all the numbers in the of an array to a single value
 # based off of the comparison rules
-def find_rating arr, bit_criteria
-  (0...arr[0].size).each do |index|
-    selected = reduce_bits(arr, bit_criteria)
+def find_rating array, bit_criteria
+  (0...array[0].size).each do |index|
+    selected = reduce_bits(array, bit_criteria)
 
-    arr = arr.filter {|arr| arr[index] == selected[index]}
+    array = array.filter {|line| line[index] == selected[index]}
 
-    if arr.size == 1
-      return arr.join.to_i(2)
+    if array.size == 1
+      return array.join.to_i(2)
     end
   end
 end
