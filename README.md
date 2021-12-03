@@ -7,12 +7,12 @@
   I did consider reference style links, and they didn't seem much better.
   Just try and view the formatted table, if you can.
 -->
-| [1](solutions/01/solve1.rb) | [2](solutions/02/solve2.rb) | 3  | 4  | 5  |
-| --------------------------- | --------------------------- | -- | -- | -- |
-| 6                           | 7                           | 8  | 9  | 10 |
-| 11                          | 12                          | 13 | 14 | 15 |
-| 16                          | 17                          | 18 | 19 | 20 |
-| 21                          | 22                          | 23 | 24 | 25 |
+| [1](solutions/01/solve1.rb) | [2](solutions/02/solve2.rb) | [3](solutions/03/solve3.rb) | 4  | 5  |
+| --------------------------- | --------------------------- | --------------------------- | -- | -- |
+| 6                           | 7                           | 8                           | 9  | 10 |
+| 11                          | 12                          | 13                          | 14 | 15 |
+| 16                          | 17                          | 18                          | 19 | 20 |
+| 21                          | 22                          | 23                          | 24 | 25 |
 
 
 ## Code Quality
