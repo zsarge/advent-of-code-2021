@@ -9,45 +9,43 @@ FILE_NAME = "input3.txt"
 
 INPUTS = File.readlines(FILE_NAME).map(&:chomp).map { _1.chars.map &:to_i }
 
+def reduce_to_bits array, bit_criteria
+  # rotate the array so the columns become rows
+  array.transpose.map(&:reverse).map do |arr|
+    # find the most common value according to the bit criteria
+    ones = arr.count { _1 == 1 }
+    zeros = arr.size - ones
+    ones.public_send(bit_criteria, zeros) ? 1 : 0
+  end
+end
+
+# reduce all the numbers in the of an array to a single value
+# based off of the comparison rules
+def find_rating arr, bit_criteria
+  (0...arr[0].size).each do |index|
+    selected = reduce_to_bits(arr, bit_criteria)
+
+    arr = arr.filter {|arr| arr[index] == selected[index]}
+
+    if arr.size == 1
+      return arr
+    end
+  end
+end
+
 def part_1
-  gamma = INPUTS.transpose.map(&:reverse).map {|arr| arr.max_by {|i| arr.count(i)}}.join.to_i 2
-  epsilon = INPUTS.transpose.map(&:reverse).map {|arr| arr.min_by {|i| arr.count(i)}}.join.to_i 2
+  gamma = reduce_to_bits(INPUTS, :>=).join.to_i(2)
+  epsilon = reduce_to_bits(INPUTS, :<).join.to_i(2)
   
   gamma * epsilon
 end
 
-# CLEAN ME UP
-
 def part_2
-  # return an array of the most/least common bits
-  def reduce_to_bits array, func
-    array.transpose.map(&:reverse).map do |arr|
-      ones = arr.count { _1 == 1 }
-      zeros = arr.size - ones
-      ones.public_send(func, zeros) ? 1 : 0
-    end
-  end
+  oxygen_rating = find_rating(INPUTS, :>=).join.to_i(2)
+  co2_rating = find_rating(INPUTS, :<).join.to_i(2)
 
-  # reduce all the numbers in the input to a single value
-  def reduce arr, func
-    (0...arr[0].size).each do |index|
-      selected = reduce_to_bits arr, func
-
-      arr = arr.filter {|arr| arr[index] == selected[index]}
-
-      if arr.size == 1
-        break
-      end
-    end
-
-    arr
-  end
-
-  oxygen_arr = reduce INPUTS, :>=
-  co2_arr = reduce INPUTS, :<
-
-  co2_arr.join.to_i(2) * oxygen_arr.join.to_i(2)
+  oxygen_rating * co2_rating
 end
 
-# p part_1
+p part_1
 p part_2
