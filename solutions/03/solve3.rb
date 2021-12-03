@@ -19,25 +19,19 @@ end
 # CLEAN ME UP
 
 def part_2
-  def get_most_common array
-    array.transpose.map(&:reverse).map do |arr| 
-      ones = arr.count { _1 == 1 }
-      zeros = arr.size - ones
-      ones >= zeros ? 1 : 0
-    end
-  end
-
-  def get_least_common array
+  # return an array of the most/least common bits
+  def reduce_to_bits array, func
     array.transpose.map(&:reverse).map do |arr|
       ones = arr.count { _1 == 1 }
       zeros = arr.size - ones
-      ones < zeros ? 1 : 0
+      ones.public_send(func, zeros) ? 1 : 0
     end
   end
 
+  # reduce all the numbers in the input to a single value
   def reduce arr, func
     (0...arr[0].size).each do |index|
-      selected = method(func).call arr
+      selected = reduce_to_bits arr, func
 
       arr = arr.filter {|arr| arr[index] == selected[index]}
 
@@ -49,8 +43,8 @@ def part_2
     arr
   end
 
-  oxygen_arr = reduce INPUTS, :get_most_common
-  co2_arr = reduce INPUTS, :get_least_common
+  oxygen_arr = reduce INPUTS, :>=
+  co2_arr = reduce INPUTS, :<
 
   co2_arr.join.to_i(2) * oxygen_arr.join.to_i(2)
 end
