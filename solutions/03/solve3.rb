@@ -25,7 +25,7 @@ def find_rating arr, bit_criteria
     arr = arr.filter {|arr| arr[index] == selected[index]}
 
     if arr.size == 1
-      return arr
+      return arr.join.to_i(2)
     end
   end
 end
@@ -38,8 +38,8 @@ def part_1
 end
 
 def part_2
-  oxygen_rating = find_rating(INPUTS, :>=).join.to_i(2)
-  co2_rating = find_rating(INPUTS, :<).join.to_i(2)
+  oxygen_rating = find_rating(INPUTS, :>=)
+  co2_rating = find_rating(INPUTS, :<)
 
   oxygen_rating * co2_rating
 end
