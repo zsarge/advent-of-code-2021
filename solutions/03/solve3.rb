@@ -26,6 +26,7 @@ def part_2
       ones >= zeros ? 1 : 0
     end
   end
+
   def get_least_common array
     array.transpose.map(&:reverse).map do |arr|
       ones = arr.count { _1 == 1 }
@@ -34,29 +35,22 @@ def part_2
     end
   end
 
-  oxygen_arr = INPUTS
+  def reduce arr, func
+    (0...arr[0].size).each do |index|
+      selected = method(func).call arr
 
-  (0...oxygen_arr[0].size).each do |index|
-    most_common = get_most_common oxygen_arr
+      arr = arr.filter {|arr| arr[index] == selected[index]}
 
-    oxygen_arr = oxygen_arr.filter {|arr| arr[index] == most_common[index]}
-
-    if oxygen_arr.size == 1
-      break
+      if arr.size == 1
+        break
+      end
     end
+
+    arr
   end
 
-  co2_arr = INPUTS
-
-  (0...co2_arr[0].size).each do |index|
-    least_common = get_least_common co2_arr
-
-    co2_arr = co2_arr.filter {|arr| arr[index] == least_common[index]}
-
-    if co2_arr.size == 1
-      break
-    end
-  end
+  oxygen_arr = reduce INPUTS, :get_most_common
+  co2_arr = reduce INPUTS, :get_least_common
 
   co2_arr.join.to_i(2) * oxygen_arr.join.to_i(2)
 end
