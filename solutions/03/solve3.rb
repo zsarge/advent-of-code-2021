@@ -8,7 +8,7 @@ INPUTS = File.readlines("input3.txt").map(&:chomp).map { _1.chars.map &:to_i }
 
 def reduce_bits array, bit_criteria
   # rotate the array so the columns become rows
-  array.transpose.map(&:reverse).map do |arr|
+  array.transpose.map do |arr|
     # find the most common value according to the bit criteria
     ones = arr.count { _1 == 1 }
     zeros = arr.size - ones
