@@ -4,7 +4,9 @@
 # using Ruby 2.5.1
 # by Zack Sargent
 
-INPUTS = File.readlines("input3.txt").map(&:chomp).map { _1.chars.map &:to_i }
+INPUTS = File.readlines("input3.txt")
+  .map(&:chomp)
+  .map { _1.chars.map &:to_i }
 
 def reduce_bits array, bit_criteria
   # rotate the array so the columns become rows
