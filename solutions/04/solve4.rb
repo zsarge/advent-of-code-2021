@@ -4,9 +4,7 @@
 # using Ruby 2.5.1
 # by Zack Sargent
 
-FILE_NAME = "input4.txt"
-
-INPUTS = File.readlines(FILE_NAME)
+INPUTS = File.readlines("input4.txt")
 $given = INPUTS.first.chomp.split(",").map &:to_i
 
 class Bingo
@@ -54,9 +52,8 @@ $boards = INPUTS
 def part_1
   $given.each do |num|
     $boards.each do |board|
-      if board.won?
-        return board.answer
-      end
+      return board.answer if board.won?
+
       board.mark num
     end
   end
