@@ -5,7 +5,6 @@
 # by Zack Sargent
 
 FILE_NAME = "input4.txt"
-# FILE_NAME = "test.txt"
 
 INPUTS = File.readlines(FILE_NAME)
 $given = INPUTS.first.chomp.split(",").map &:to_i
@@ -69,50 +68,37 @@ $boards = INPUTS
   .map { Bingo.new(_1) }
 
 
-# def part_1
-  # $given.each do |num|
-    # $boards.each do |board|
-      # if board.won?
-        # return board
-      # end
-      # board.mark num
-    # end
-  # end
-# end
-
-def part_2
+def part_1
   $given.each do |num|
     $boards.each do |board|
+      if board.won?
+        return board.answer
+      end
       board.mark num
     end
-    $boards = $boards.reject {_1.won?}
-    return $boards.first if $boards.size == 1
+  end
+end
+
+def part_2
+  def find_last_board
+    $given.each do |num|
+      $boards.each do |board|
+        board.mark num
+      end
+
+      $boards = $boards.reject {_1.won?}
+
+      return $boards.first if $boards.size == 1
+    end
   end
 
-  # $boards.each do |board|
-    # board.print
-  # end
-
-  puts "part_2"
-  $boards.each(&:print)
-  # $boards.max_by {|board| board.marked.size}
+  last_board = find_last_board
+  $given.drop(last_board.marked.size-1).each do |num|
+    last_board.mark num
+    return last_board.answer if last_board.won?
+  end
 end
 
-# p part_2.answer
-
-last_board = part_2
-index = 0
-until last_board.won?
-  last_board.mark $given[index]
-  index += 1
-end
-# last_board.print
-p last_board.answer
-
-
-# p part_1.answer
-
-# p INPUTS
-# p selected
-# pp boards
+p part_1
+p part_2
 
