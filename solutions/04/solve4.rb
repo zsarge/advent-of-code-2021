@@ -4,20 +4,31 @@
 # using Ruby 2.5.1
 # by Zack Sargent
 
+FILE_NAME = "input4.txt"
+# FILE_NAME = "test.txt"
+
+INPUTS = File.readlines(FILE_NAME)
+$given = INPUTS.first.chomp.split(",").map &:to_i
+
 class Bingo
   @card
   @values
-  @marked
+  attr_reader :marked
+  @won
 
   def initialize card
     @card = card
     @values = card.flatten
     @marked = []
+    @won = false
   end
 
   def print
+    puts "===NEW CARD===="
     puts "card:"
-    pp @card
+    @card.each do |col|
+      puts col.map {|val| val.to_s.rjust 3}.join ", "
+    end
     puts "values:"
     p @values
     puts "marked:"
@@ -29,6 +40,7 @@ class Bingo
   end
 
   def mark num
+    return if @won
     if @values.include? num
       @marked << num
       @card = @card.map {|col| col.map {|value| value == num ? "#" : value}}
@@ -36,9 +48,10 @@ class Bingo
   end
 
   def won?
+    return true if @won
     valid = ->(line) {line.count { _1 == "#" } == line.size}
-    @card.any?(&valid)
-    @card.transpose.any?(&valid)
+    res = @card.any?(&valid) || @card.transpose.any?(&valid)
+    @won = res
   end
 
   def answer
@@ -47,11 +60,6 @@ class Bingo
   end
 end
 
-FILE_NAME = "input4.txt"
-# FILE_NAME = "test.txt"
-
-INPUTS = File.readlines(FILE_NAME)
-$given = INPUTS.first.chomp.split(",").map &:to_i
 $boards = INPUTS
   .drop(1)
   .map(&:chomp)
@@ -61,23 +69,50 @@ $boards = INPUTS
   .map { Bingo.new(_1) }
 
 
-def part_1
+# def part_1
+  # $given.each do |num|
+    # $boards.each do |board|
+      # if board.won?
+        # return board
+      # end
+      # board.mark num
+    # end
+  # end
+# end
+
+def part_2
   $given.each do |num|
     $boards.each do |board|
-      if board.won?
-        # board.print
-        # puts "WON!!"
-        return board
-      end
       board.mark num
-      # board.print
-      # puts "---"
     end
+    $boards = $boards.reject {_1.won?}
+    return $boards.first if $boards.size == 1
   end
+
+  # $boards.each do |board|
+    # board.print
+  # end
+
+  puts "part_2"
+  $boards.each(&:print)
+  # $boards.max_by {|board| board.marked.size}
 end
 
-p part_1.answer
+# p part_2.answer
+
+last_board = part_2
+index = 0
+until last_board.won?
+  last_board.mark $given[index]
+  index += 1
+end
+# last_board.print
+p last_board.answer
+
+
+# p part_1.answer
 
 # p INPUTS
 # p selected
 # pp boards
+
