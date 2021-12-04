@@ -50,16 +50,17 @@ $boards = INPUTS
   .map { Bingo.new(_1) }
 
 def part_1
+  # mark off answers until we find a winning board
   $given.each do |num|
     $boards.each do |board|
-      return board.answer if board.won?
-
       board.mark num
+      return board.answer if board.won?
     end
   end
 end
 
 def find_last_board
+  # mark off answers until there is only one board left
   $given.each do |num|
     $boards.each do |board|
       board.mark num
@@ -72,8 +73,10 @@ def find_last_board
 end
 
 def part_2
+  # solve the last board
   last_board = find_last_board
-  $given.drop(last_board.marked.size-1).each do |num|
+  used = last_board.marked.size-1
+  $given.drop(used).each do |num|
     last_board.mark num
     return last_board.answer if last_board.won?
   end
