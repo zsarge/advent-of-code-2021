@@ -22,22 +22,6 @@ class Bingo
     @won = false
   end
 
-  def print
-    puts "===NEW CARD===="
-    puts "card:"
-    @card.each do |col|
-      puts col.map {|val| val.to_s.rjust 3}.join ", "
-    end
-    puts "values:"
-    p @values
-    puts "marked:"
-    p @marked
-  end
-
-  def contains? num
-    @values.include? num
-  end
-
   def mark num
     return if @won
     if @values.include? num
@@ -49,8 +33,7 @@ class Bingo
   def won?
     return true if @won
     valid = ->(line) {line.count { _1 == "#" } == line.size}
-    res = @card.any?(&valid) || @card.transpose.any?(&valid)
-    @won = res
+    @won = @card.any?(&valid) || @card.transpose.any?(&valid)
   end
 
   def answer
@@ -59,6 +42,7 @@ class Bingo
   end
 end
 
+# $boards is an array of Bingo objects
 $boards = INPUTS
   .drop(1)
   .map(&:chomp)
@@ -66,7 +50,6 @@ $boards = INPUTS
   .each_slice(5)
   .map {|arr| arr.map {_1.split(" ").map(&:to_i)}}
   .map { Bingo.new(_1) }
-
 
 def part_1
   $given.each do |num|
@@ -79,19 +62,19 @@ def part_1
   end
 end
 
-def part_2
-  def find_last_board
-    $given.each do |num|
-      $boards.each do |board|
-        board.mark num
-      end
-
-      $boards = $boards.reject {_1.won?}
-
-      return $boards.first if $boards.size == 1
+def find_last_board
+  $given.each do |num|
+    $boards.each do |board|
+      board.mark num
     end
-  end
 
+    $boards.delete_if {_1.won?}
+
+    return $boards.first if $boards.size == 1
+  end
+end
+
+def part_2
   last_board = find_last_board
   $given.drop(last_board.marked.size-1).each do |num|
     last_board.mark num
