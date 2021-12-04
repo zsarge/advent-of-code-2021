@@ -60,9 +60,9 @@ if extension == "rb"
 # using Ruby 2.5.1
 # by Zack Sargent
 
-INPUT_FILE = File.open(\"#{input_file_name}\")
-# INPUTS = INPUT_FILE.read.split(\"\\n\").filter {|x| !x.empty?}
-INPUTS = File.readlines(\"#{input_file_name}\")
+FILE_NAME = \"#{input_file_name}\"
+# FILE_NAME = \"test.txt\"
+INPUTS = File.readlines(\"FILE_NAME\")
 
 p INPUTS
 "
@@ -74,5 +74,6 @@ Dir.mkdir(path) unless File.directory?(path)
 
 File.write("#{path}/#{filename}", template, mode: "w")
 File.write("#{path}/#{input_file_name}", "PUT INPUT HERE", mode: "w")
+File.write("#{path}/test.txt", "PUT TEST INPUT HERE", mode: "w")
 
 puts "created #{path}/#{filename}"
