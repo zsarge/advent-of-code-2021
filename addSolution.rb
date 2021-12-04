@@ -62,7 +62,7 @@ if extension == "rb"
 
 FILE_NAME = \"#{input_file_name}\"
 # FILE_NAME = \"test.txt\"
-INPUTS = File.readlines(\"FILE_NAME\")
+INPUTS = File.readlines(FILE_NAME)
 
 p INPUTS
 "
