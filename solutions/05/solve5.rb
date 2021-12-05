@@ -4,9 +4,7 @@
 # using Ruby 2.5.1
 # by Zack Sargent
 
-FILE_NAME = "input5.txt"
-# FILE_NAME = "test.txt"
-INPUTS = File.readlines(FILE_NAME)
+INPUTS = File.readlines("input5.txt")
   .map(&:chomp)
   .map{|line| line.split(" -> ")}
   .map{|points| points.map{|point| point.split(",").map(&:to_i)}}
