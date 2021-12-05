@@ -20,7 +20,8 @@ def part_1
   # assumes a square world
   max = inputs.flatten.max + 1
 
-  @ocean_floor = Array.new(max) {Array.new(max, 0)}
+  @ocean_floor = Array.new(max){Array.new(max, 0)}
+
   inputs.each do |(x1,y1), (x2,y2)|
     if x1 == x2
       range(y1,y2).each do |y|
@@ -32,7 +33,8 @@ def part_1
       end
     end
   end
-  @ocean_floor.flatten.count {_1 >= 2}
+
+  @ocean_floor.flatten.count{ _1 >= 2 }
 end
 
 def part_2
@@ -43,7 +45,8 @@ def part_2
         @ocean_floor[y][x] += 1
       end
   end
-  @ocean_floor.flatten.count {_1 >= 2}
+
+  @ocean_floor.flatten.count{ _1 >= 2 }
 end
 
 p part_1
