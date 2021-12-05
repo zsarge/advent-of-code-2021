@@ -36,11 +36,11 @@ end
 def part_2
   inputs = INPUTS.filter {|(x1,y1),(x2,y2)| x1 != x2 && y1 != y2}
 
-  def bi_range a, b
+  def range a, b
     a < b ? (a..b) : a.downto(b)
   end
   inputs.each do |(x1,y1), (x2,y2)|
-      bi_range(x1,x2).zip(bi_range(y1, y2)).each do |x,y|
+      range(x1,x2).zip(range(y1, y2)).each do |x,y|
         @ocean_floor[y][x] += 1
       end
   end
