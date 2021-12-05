@@ -36,6 +36,9 @@ def part_1
 end
 
 def part_2
+  # note that we are using the
+  # ocean_floor computed in part 1
+
   inputs = INPUTS.filter {|(x1,y1),(x2,y2)| x1 != x2 && y1 != y2}
 
   inputs.each do |(x1,y1), (x2,y2)|
