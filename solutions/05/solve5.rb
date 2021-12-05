@@ -11,6 +11,10 @@ INPUTS = File.readlines(FILE_NAME)
   .map{|line| line.split(" -> ")}
   .map{|points| points.map{|point| point.split(",").map(&:to_i)}}
 
+def range a, b
+  a < b ? (a..b) : a.downto(b)
+end
+
 def part_1
   inputs = INPUTS.filter {|(x1,y1),(x2,y2)| x1 == x2 || y1 == y2}
   # assumes a square world
@@ -19,13 +23,11 @@ def part_1
   @ocean_floor = Array.new(max) {Array.new(max, 0)}
   inputs.each do |(x1,y1), (x2,y2)|
     if x1 == x2
-      min, max = [y1, y2].minmax
-      (min..max).each do |y|
+      range(y1,y2).each do |y|
         @ocean_floor[y][x1] += 1
       end
     else
-      min, max = [x1, x2].minmax
-      (min..max).each do |x|
+      range(x1,x2).each do |x|
         @ocean_floor[y1][x] += 1
       end
     end
@@ -36,9 +38,6 @@ end
 def part_2
   inputs = INPUTS.filter {|(x1,y1),(x2,y2)| x1 != x2 && y1 != y2}
 
-  def range a, b
-    a < b ? (a..b) : a.downto(b)
-  end
   inputs.each do |(x1,y1), (x2,y2)|
       range(x1,x2).zip(range(y1, y2)).each do |x,y|
         @ocean_floor[y][x] += 1
