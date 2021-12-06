@@ -6,17 +6,20 @@
 
 INPUTS = File.read("input6.txt").chomp.split(",").map(&:to_i)
 
+# This is basically:
+# https://github.com/damyvv/advent-of-code-2021/blob/master/solutions/day06.rb
+# In my opinion, this is a really good solution,
+# in that operates in constant space complexity.
+
 [80, 256].each do |days|
-  cycle = INPUTS.reduce(Array.new(9 ,0)) do |acc, ele| 
-	acc[ele] += 1
-	acc 
-  end
+  cycle = Array.new(9,0)
+  input.each {|i| count[i] += 1 }
 
   days.times do
-	# increase the number on the 7th day by the amount on the 0th day
-	cycle[7] += cycle[0]
-	# move the array along
-	cycle.rotate!(1)
+    # increase the number on the 7th day by the amount on the 0th day
+    cycle[7] += cycle[0]
+    # move the array along
+    cycle.rotate!(1)
   end
 
   p cycle.sum
