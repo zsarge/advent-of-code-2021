@@ -13,7 +13,9 @@ INPUTS = File.read("input6.txt").chomp.split(",").map(&:to_i)
   end
 
   days.times do
+	# increase the number on the 7th day by the amount on the 1st day
 	count[7] += count[0]
+	# move the array along
 	count.rotate!(1)
   end
 
