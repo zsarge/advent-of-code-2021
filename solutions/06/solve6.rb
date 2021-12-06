@@ -13,7 +13,7 @@ INPUTS = File.read("input6.txt").chomp.split(",").map(&:to_i)
   end
 
   days.times do
-	# increase the number on the 7th day by the amount on the 1st day
+	# increase the number on the 7th day by the amount on the 0th day
 	cycle[7] += cycle[0]
 	# move the array along
 	cycle.rotate!(1)
