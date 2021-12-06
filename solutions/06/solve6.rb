@@ -13,7 +13,7 @@ INPUTS = File.read("input6.txt").chomp.split(",").map(&:to_i)
 
 [80, 256].each do |days|
   cycle = Array.new(9,0)
-  input.each {|i| count[i] += 1 }
+  INPUTS.each {|i| cycle[i] += 1 }
 
   days.times do
     # increase the number on the 7th day by the amount on the 0th day
