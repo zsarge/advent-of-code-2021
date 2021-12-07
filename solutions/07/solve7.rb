@@ -5,17 +5,20 @@
 # by Zack Sargent
 
 INPUTS = File.read("input7.txt").scan(/\d+/).map(&:to_i)
+RANGE = (INPUTS.min..INPUTS.max)
 
 def part_1
   # returns the amount of fuel it takes to
   # move all crabs to that point
   def consider point
-    INPUTS.map{ |input| (input - point).abs }.sum
+    INPUTS.map{ |input|
+      (input - point).abs
+    }.sum
   end
 
-  INPUTS.map { |input|
-    consider(input)
-  }.min
+  RANGE
+    .map { |input| consider(input) }
+    .min
 end
 
 def part_2
@@ -23,14 +26,14 @@ def part_2
   # move all crabs to that point
   def consider point
     INPUTS.map { |input|
-      n = (input - point).abs 
+      n = (input - point).abs
       (n*(n + 1)) / 2
     }.sum
   end
 
-  (INPUTS.min..INPUTS.max).map { |input|
-    consider(input)
-  }.min
+  RANGE
+    .map { |input| consider(input) }
+    .min
 end
 
 p part_1
