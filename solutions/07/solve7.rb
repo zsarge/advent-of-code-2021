@@ -4,11 +4,8 @@
 # using Ruby 2.5.1
 # by Zack Sargent
 
-FILE_NAME = "input7.txt"
-# FILE_NAME = "test.txt"
-INPUTS = File.read(FILE_NAME).scan(/\d+/).map(&:to_i)
+INPUTS = File.read("input7.txt").scan(/\d+/).map(&:to_i)
 
-# O(n^2)
 def part_1
   # returns the amount of fuel it takes to
   # move all crabs to that point
@@ -21,7 +18,6 @@ def part_1
   }.min
 end
 
-# O(n^2)
 def part_2
   # returns the amount of fuel it takes to
   # move all crabs to that point
