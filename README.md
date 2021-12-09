@@ -14,6 +14,9 @@
 | 16                          | 17                          | 18                          | 19                          | 20                          |
 | 21                          | 22                          | 23                          | 24                          | 25                          |
 
+## I am taking a break to focus on exams.
+
+I will be done back before the end of advent.
 
 ## Code Quality
 
