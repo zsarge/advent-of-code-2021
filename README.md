@@ -16,7 +16,7 @@
 
 ## I am taking a break to focus on exams.
 
-I will be done back before the end of advent.
+I will be back before the end of advent.
 
 ## Code Quality
 
