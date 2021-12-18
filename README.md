@@ -7,14 +7,14 @@
   I did consider reference style links, and they didn't seem much better.
   Just try and view the formatted table, if you can.
 -->
-| [1](solutions/01/solve1.rb) | [2](solutions/02/solve2.rb) | [3](solutions/03/solve3.rb) | [4](solutions/04/solve4.rb) | [5](solutions/05/solve5.rb) |
-| --------------------------- | --------------------------- | --------------------------- | --------------------------- | --------------------------- |
-| [6](solutions/06/solve6.rb) | [7](solutions/07/solve7.rb) | 8                           | 9                           | 10                          |
-| 11                          | 12                          | 13                          | 14                          | 15                          |
-| 16                          | 17                          | 18                          | 19                          | 20                          |
-| 21                          | 22                          | 23                          | 24                          | 25                          |
+| [1](solutions/01/solve1.rb) | [2](solutions/02/solve2.rb) | [3](solutions/03/solve3.rb)   | [4](solutions/04/solve4.rb) | [5](solutions/05/solve5.rb) |
+| --------------------------- | --------------------------- | ----------------------------- | --------------------------- | --------------------------- |
+| [6](solutions/06/solve6.rb) | [7](solutions/07/)          | [8](solutions/08/solve8.rb)   | 9                           | 10                          |
+| 11                          | 12                          | 13                            | 14                          | 15                          |
+| 16                          | 17                          | 18                            | 19                          | 20                          |
+| 21                          | 22                          | 23                            | 24                          | 25                          |
 
-## I am taking a break to focus on exams.
+## I am taking a break to focus on exams
 
 I will be back before the end of advent.
 
