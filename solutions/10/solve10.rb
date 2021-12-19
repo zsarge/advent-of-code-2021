@@ -4,32 +4,35 @@
 # using Ruby 2.5.1
 # by Zack Sargent
 
-FILE_NAME = "input10.txt"
-# FILE_NAME = "test.txt"
-INPUTS = File.readlines(FILE_NAME).map(&:chomp)
+INPUTS = File.readlines("input10.txt").map(&:chomp)
 
-PAIRS = {
-  '(' => ')',
-  '[' => ']',
-  '{' => '}',
-  '<' => '>',
+GET_OPENER = {
+  ')' => '(',
+  ']' => '[',
+  '}' => '{',
+  '>' => '<',
 }
 
-GET_OPENER = PAIRS.to_a.map(&:reverse).to_h
+GET_CLOSER = GET_OPENER.to_a.map(&:reverse).to_h
 
-POINT_VALUE = {
+POINT_VALUE_1 = {
   ')' => 3,
   ']' => 57,
   '}' => 1197,
   '>' => 25137,
 }
 
-def test input
+POINT_VALUE_2 = {
+  ')' => 1,
+  ']' => 2,
+  '}' => 3,
+  '>' => 4,
+}
+
+def first_illegal_char input
   stack = []
   input.chars.each do |char|
-    # puts "stack: #{stack}"
-
-    if PAIRS.keys.include? char
+    if GET_OPENER.values.include? char
       stack << char
     else
       if stack.last == GET_OPENER[char]
@@ -39,81 +42,43 @@ def test input
       end
     end
   end
-  return nil
+  return nil # line was valid
 end
 
-p INPUTS.filter_map {|input| x = test(input); POINT_VALUE[x] if x != nil }.sum
+def get_closing_score line
+  # build a stack, like part 1
+  stack = []
+  line.chars.each do |char|
+    if GET_OPENER.values.include? char
+      stack << char
+    else
+      if stack.last == GET_OPENER[char]
+        stack.pop
+      end
+    end
+  end
 
-# class Chunk
-  # attr_reader :open, :close, :content
-  # def initialize line
-    # return if line.empty?
-    # p "line: #{line}"
-    # @open = line[0]
-    # @close = PAIRS[line[0]]
-    # @content =
-      # if line.size == 2
-        # nil
-      # else
-        # Chunk.new(line.slice(1, line.index(@close) - 1))
-      # end
-  # end
+  # close all of the open braces, and calculate the score
+  scores = stack.reverse.map{|opener| POINT_VALUE_2[GET_CLOSER[opener]]}
 
-  # def print
-    # puts "#{@open}#{@close}"
-    # if @content.is_a? Chunk
-      # @content.print
-    # end
-  # end
-# end
+  # calculate final score
+  total = 0
+  scores.each do |score|
+    total *= 5
+    total += score
+  end
+  return total
+end
 
-# p Chunk.new("{()()()}")
-# Chunk.new("{()()()}").print
+# part 1
+p INPUTS.filter_map {|input|
+  x = first_illegal_char(input)
+  POINT_VALUE_1[x] if x
+}.sum
 
-# def chunk_idea line
-  # # line.chars.chunk {|char| PAIRS.keys.include? char}.map{|(_, res)| res}.each_slice(2).map{|(a,b)| a.concat(b)}.to_a
-  # line.chars.filter{PAIRS.keys.include? _1}.to_a.each do |c|
-    # p line
-    # line = line.chars.chunk{|ch| ch != PAIRS[c]}.map{|(_,b)| b}
-  # end
-  # p line
-# end
+scores = INPUTS.filter_map {|input|
+  get_closing_score(input) if !first_illegal_char(input)
+}.sort
 
-# INPUTS.each do |input|
-  # pp chunk_idea input
-# end
-
-# def is_corrupted? line
-  # p "given #{line}"
-  # opens  = line.chars.filter{|char| PAIRS.keys.include? char}
-  # closes = line.chars.filter{|char| PAIRS.values.include? char}
-
-  # opens.each do |brace|
-    # # p [:opens, opens]
-    # puts "brace: #{brace}"
-    # p [:close, closes]
-    # if closes.include? PAIRS[brace]
-      # closes.delete_at(closes.index(PAIRS[brace]) || closes.length)
-    # else
-      # # p [:missing, PAIRS[brace]]
-      # return true
-    # end
-  # end
-  # return false
-# end
-
-# def get_score line
-# opens  = line.chars.filter{|char| OPENS.include? char}
-# closes = line.chars.filter{|char| CLOSES.include? char}
-
-# opens.zip(closes).each do |(open, close)|
-# if CLOSES[OPENS.index(open)] != close
-# return POINT_VALUE[close]
-# end
-# end
-# 0
-# end
-
-# pp INPUTS
-# pp INPUTS.take(2).filter{ is_corrupted? _1 }
-# p INPUTS.map{|line| get_score line }
+# part 2
+p scores[scores.size/2]
