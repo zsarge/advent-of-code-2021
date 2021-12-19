@@ -29,24 +29,9 @@ POINT_VALUE_2 = {
   '>' => 4,
 }
 
-def first_illegal_char input
-  stack = []
-  input.chars.each do |char|
-    if GET_OPENER.values.include? char
-      stack << char
-    else
-      if stack.last == GET_OPENER[char]
-        stack.pop
-      else
-        return char
-      end
-    end
-  end
-  return nil # line was valid
-end
-
-def get_closing_score line
-  # build a stack, like part 1
+# @param [String] line
+# @return [Array] (illegal_character_point_value, total_score)
+def process line
   stack = []
   line.chars.each do |char|
     if GET_OPENER.values.include? char
@@ -54,6 +39,8 @@ def get_closing_score line
     else
       if stack.last == GET_OPENER[char]
         stack.pop
+      else
+        return [POINT_VALUE_1[char], nil]
       end
     end
   end
@@ -67,18 +54,20 @@ def get_closing_score line
     total *= 5
     total += score
   end
-  return total
+
+  return [nil, total]
 end
 
 # part 1
 p INPUTS.filter_map {|input|
-  x = first_illegal_char(input)
-  POINT_VALUE_1[x] if x
+  invalid_character, _ = process(input)
+  invalid_character # will be nil for incomplete lines
 }.sum
 
+# part 2
 scores = INPUTS.filter_map {|input|
-  get_closing_score(input) if !first_illegal_char(input)
+  pt1, total_score = process(input)
+  total_score if !pt1
 }.sort
 
-# part 2
 p scores[scores.size/2]
