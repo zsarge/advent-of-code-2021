@@ -40,6 +40,7 @@ def process line
       if stack.last == GET_OPENER[char]
         stack.pop
       else
+        # return the point value of the invalid closing brace
         return [POINT_VALUE_1[char], nil]
       end
     end
@@ -54,7 +55,6 @@ def process line
     total *= 5
     total += score
   end
-
   return [nil, total]
 end
 
