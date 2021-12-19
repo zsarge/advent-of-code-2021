@@ -16,6 +16,7 @@ INPUTS = File.readlines(FILE_NAME)
 class Node
   attr_reader :left
   attr_reader :right
+
   def initialize l, r
     # p ({left: [l, l.class], right: [r, r.class]})
     if l.is_a? Integer
@@ -60,9 +61,9 @@ end
 # figure out what in the world resolving means
 
 INPUTS.each do |(left, right)|
-  pp [left, right] 
+  pp [left, right]
   node = Node.new(left, right)
-  pp node
+  # pp node
   puts puts JSON.pretty_generate(JSON.parse(node.to_json))
   # count_sub_arrs input
   # pp input
