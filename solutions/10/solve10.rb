@@ -4,16 +4,18 @@
 # using Ruby 2.5.1
 # by Zack Sargent
 
-# FILE_NAME = "input10.txt"
-FILE_NAME = "test.txt"
+FILE_NAME = "input10.txt"
+# FILE_NAME = "test.txt"
 INPUTS = File.readlines(FILE_NAME).map(&:chomp)
 
 PAIRS = {
   '(' => ')',
-  '[' => ']', 
-  '{' => '}', 
-  '<' => '>', 
+  '[' => ']',
+  '{' => '}',
+  '<' => '>',
 }
+
+GET_OPENER = PAIRS.to_a.map(&:reverse).to_h
 
 POINT_VALUE = {
   ')' => 3,
@@ -22,31 +24,51 @@ POINT_VALUE = {
   '>' => 25137,
 }
 
-class Chunk
-  attr_reader :open, :close, :content
-  def initialize line
-    return if line.empty?
-    p "line: #{line}"
-    @open = line[0]
-    @close = PAIRS[line[0]]
-    @content = 
-      if line.size == 2
-        nil
-      else
-        Chunk.new(line.slice(1, line.index(@close) - 1))
-      end
-  end
+def test input
+  stack = []
+  input.chars.each do |char|
+    # puts "stack: #{stack}"
 
-  def print
-    puts "#{@open}#{@close}" 
-    if @content.is_a? Chunk
-      @content.print
+    if PAIRS.keys.include? char
+      stack << char
+    else
+      if stack.last == GET_OPENER[char]
+        stack.pop
+      else
+        return char
+      end
     end
   end
+  return nil
 end
 
-p Chunk.new("{()()()}")
-Chunk.new("{()()()}").print
+p INPUTS.filter_map {|input| x = test(input); POINT_VALUE[x] if x != nil }.sum
+
+# class Chunk
+  # attr_reader :open, :close, :content
+  # def initialize line
+    # return if line.empty?
+    # p "line: #{line}"
+    # @open = line[0]
+    # @close = PAIRS[line[0]]
+    # @content =
+      # if line.size == 2
+        # nil
+      # else
+        # Chunk.new(line.slice(1, line.index(@close) - 1))
+      # end
+  # end
+
+  # def print
+    # puts "#{@open}#{@close}"
+    # if @content.is_a? Chunk
+      # @content.print
+    # end
+  # end
+# end
+
+# p Chunk.new("{()()()}")
+# Chunk.new("{()()()}").print
 
 # def chunk_idea line
   # # line.chars.chunk {|char| PAIRS.keys.include? char}.map{|(_, res)| res}.each_slice(2).map{|(a,b)| a.concat(b)}.to_a
