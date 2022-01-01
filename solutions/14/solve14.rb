@@ -4,8 +4,8 @@
 # using Ruby 2.5.1
 # by Zack Sargent
 
-# FILE_NAME = "input14.txt"
-FILE_NAME = "test.txt"
+FILE_NAME = "input14.txt"
+# FILE_NAME = "test.txt"
 INPUTS = File.readlines(FILE_NAME).map(&:chomp)
 
 TEMPLATE = INPUTS[0]
@@ -25,7 +25,7 @@ def insert input
 end
 
 def part1 input
-  10.times do
+  10.times do |i|
     input = insert input
   end
 
