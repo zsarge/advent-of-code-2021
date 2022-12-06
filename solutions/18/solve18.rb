@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# https://adventofcode.com/2020/day/18
+# https://adventofcode.com/2021/day/18
 # Run with: 'ruby solve18.rb'
 # using Ruby 2.5.1
 # by Zack Sargent
